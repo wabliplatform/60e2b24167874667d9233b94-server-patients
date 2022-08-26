@@ -1,0 +1,156 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: lampralexandros@gmail.com
+  description: This is a sample openApi document
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://wabli.netlify.app/
+  title: TempApi
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- description: solid-spoon
+  url: http://83.212.100.226:3001/v1
+security:
+- {}
+tags:
+- description: not yet ready
+  name: patient
+paths:
+  /patient:
+    post:
+      operationId: createpatient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/patient'
+        description: data to be created
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/patient'
+          description: successful operation
+      summary: Creates the data
+      tags:
+      - patient
+      x-eov-operation-handler: controllers/PatientController
+  /patient/{patientId}:
+    delete:
+      operationId: deletepatient
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: successful operation
+      summary: Delete the element
+      tags:
+      - patient
+      x-eov-operation-handler: controllers/PatientController
+    get:
+      operationId: getpatient
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/patient'
+          description: successful operation
+      summary: Get the element
+      tags:
+      - patient
+      x-eov-operation-handler: controllers/PatientController
+    put:
+      operationId: updatepatient
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/patient'
+        description: data to be updated
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/patient'
+          description: successful operation
+      summary: Updates the element
+      tags:
+      - patient
+      x-eov-operation-handler: controllers/PatientController
+  /patient/getAll:
+    get:
+      operationId: getAllpatient
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/patient'
+                type: array
+          description: successful operation
+      summary: Get all the data
+      tags:
+      - patient
+      x-method-getAll: "true"
+      x-eov-operation-handler: controllers/PatientController
+components:
+  schemas:
+    patient:
+      example:
+        lname: lname
+        pname: pname
+        mphone: mphone
+        _id: _id
+        amka: amka
+      properties:
+        _id:
+          type: string
+        pname:
+          type: string
+        lname:
+          type: string
+        amka:
+          type: string
+        mphone:
+          type: string
+      required:
+      - amka
+      - lname
+      - mphone
+      - pname
+      type: object
